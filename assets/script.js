@@ -1,4 +1,4 @@
-var questions = [
+var userQuestions = [
     { 
         question:"CSS style sheets are read how?" , 
         correctAnswer: "Top to Bottom" ,
@@ -91,15 +91,17 @@ startButtonEl.addEventListener("click", function(){
             if(secondsRemaining <=0){
                 clearInterval(timerEnd);
                 timerEL.textContent ="Time is up.";
+                
             }
 
         },1000);
     }
     promptQuiz(questionIndex)
+   
 })
 
 
-     for(var i = 0; i<questions.length; i++) 
+    
      
 
     
