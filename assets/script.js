@@ -99,9 +99,8 @@ startButtonEl.addEventListener("click", function(){
 })
 
 
-    // for(var i = 0; i<questions.length; 1++) 
-        
-        
+     for(var i = 0; i<questions.length; i++) 
+     
 
     
     
