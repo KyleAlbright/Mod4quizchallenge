@@ -1,110 +1,121 @@
-var userQuestions = [
-    { 
-        question:"CSS style sheets are read how?" , 
-        correctAnswer: "Top to Bottom" ,
-        choices: [
-            "Top to Bottom", 
-            "Bottom to Top", 
-            "Left to Right", 
-            "Right to Left"
-        ]
-    },
+// variables for DOM manipulation
 
-    {
-        question:"JavaScript is a ____-side programming language" , 
-        correctAnswer: "Both" ,
-        choices: [
-            "Client", 
-            "Server", 
-            "Both", 
-            "None of the Above"
-        ]
-    },
-
-    {
-        question:" var number = '1' is stored as what type of variable?" , 
-        correctAnswer: "String" ,
-        choices: [
-            "Number", 
-            "String", 
-            "Boolean", 
-            "Undefined"
-        ]
-    },
-
-    {
-        question:"To add an element to the end of an array you use:" , 
-        correctAnswer: "push()" ,
-        choices: [
-            "pop()", 
-            "add()", 
-            "slice()", 
-            "push()"
-        ]
-    },
-    
-    {
-        question:"You can access a global variable where?" , 
-        correctAnswer: "In both global and local" ,
-        choices: [
-            "Only in global", 
-            "Only in local", 
-            "In both global and local", 
-            "You cannot access global variables"
-        ]
-    },
-
-    { 
-        question:"HTML stands for:" , 
-        correctAnswer: "HyperText Markup Language" ,
-        choices: [
-            "HyperText Markup Language", 
-            "HighTech Markup Language", 
-            "HighText Machine Language", 
-            "HeyThere My Lizards"
-        ]
-    }
-];
+var headerEl = document.getElementById("header");
+var startEl = document.getElementById("start");
+var rulesEL = document.getElementById("rules");
+var timerEl = document.getElementById("timer");
+var questionsEL = document.querySelector("questions");
+var questionOneEl = document.getElementById("questionOne");
+var questionTwoEl = document.getElementById("questionTwo");
+var questionThreeEl = document.getElementById("questionThree");
+var questionFourEl = document.getElementById("questionFour");
+var questionFiveEl = document.getElementById("questionFive");
+var greatJobEl = document.getElementById("greatJob");
+var textInitialsEl = document.getElementById("textInitials");
+var gameOverEl = document.getElementById("gameOver");
+var replayEl = document.getElementById("replay");
+var scoreEl = document.getElementById("score");
 
 var score = 0;
-var questionIndex = 0;
-
-var timerEl = document.getElementById("startingTime");
-var startButtonEl = document.getElementById("startQuiz");
-var questions = document.getElementById("questions");
-var highScores = document.getElementById("highScores");
-var container = document.getElementById("container")
-
-var secondsRemaining = 60;
 var timerEnd = 0;
-var wrongAnswer = 5;
-var createQuiz = document.createElement("ol");
+var secondsRemaining = 60;
 
+questionOneEl.style.display = "none";
+questionTwoEl.style.display = "none";
+questionThreeEl.style.display = "none";
+questionFourEl.style.display = "none";
+questionFiveEl.style.display = "none";
+greatJobEl.style.display = "none";
+gameOver.style.display = "none";
 
-startButtonEl.addEventListener("click", function(){
-    //checking 0 because it starts at zero until clicked
-    if (timerEnd === 0){
-        timerEnd = setInterval(function(){
-            secondsRemaining--;
-            timerEl.textContent ="Time: " + secondsRemaining;
+function penalty() {
+  secondsRemaining = secondsRemaining - 5;
+}
 
-            if(secondsRemaining <=0){
-                clearInterval(timerEnd);
-                timerEL.textContent ="Time is up.";
-                
-            }
+function points() {
+  score = score + 5;
+}
 
-        },1000);
-    }
-    promptQuiz(questionIndex)
-   
-})
+startEl.addEventListener("click", function () {
+  //checking 0 because it starts at zero until clicked
+  if (timerEnd === 0) {
+    timerEnd = setInterval(function () {
+      secondsRemaining--;
+      timerEl.textContent = "Time: " + secondsRemaining;
+      scoreEl.textContent = "Score: " + score;
 
+      if (secondsRemaining <= 0) {
+        clearInterval(timerEnd);
+        timerEL.textContent = "Time is up.";
+      }
+    }, 1000);
+  }
 
-    
-     
+  headerEl.style.display = "none";
+  startEl.style.display = "none";
+  rulesEL.style.display = "none";
 
-    
-    
-    
+  questionOneEl.style.display = "block";
 
+  let correctAnswer = document.getElementById("correct-answer-one");
+  let wrongAnswer = document.querySelectorAll(".wrong-answer-one");
+
+  correctAnswer.addEventListener("click", promptTwo);
+  wrongAnswer.forEach((wrong) => {
+    wrong.addEventListener("click", promptTwo);
+  });
+
+  function promptTwo() {
+    questionOneEl.style.display = "none";
+    questionTwoEl.style.display = "block";
+
+    let correctAnswer = document.getElementById("correct-answer-two");
+    let wrongAnswer = document.querySelectorAll(".wrong-answer-two");
+
+    correctAnswer.addEventListener("click", promptThree);
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", promptThree);
+    });
+  }
+
+  function promptThree() {
+    questionTwoEl.style.display = "none";
+    questionThreeEl.style.display = "block";
+
+    let correctAnswer = document.getElementById("correct-answer-three");
+    let wrongAnswer = document.querySelectorAll(".wrong-answer-three");
+
+    correctAnswer.addEventListener("click", promptFour);
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", promptFour);
+    });
+  }
+
+  function promptFour() {
+    questionThreeEl.style.display = "none";
+    questionFourEl.style.display = "block";
+
+    let correctAnswer = document.getElementById("correct-answer-four");
+    let wrongAnswer = document.querySelectorAll(".wrong-answer-four");
+
+    correctAnswer.addEventListener("click", promptFive);
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", promptFive);
+    });
+  }
+
+  function promptFive() {
+    questionFourEl.style.display = "none";
+    questionFiveEl.style.display = "block";
+
+    let correctAnswer = document.getElementById("correct-answer-five");
+    let wrongAnswer = document.querySelectorAll(".wrong-answer-five");
+
+    correctAnswer.addEventListener("click", promptScore);
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", promptScore);
+    });
+  }
+
+  //  function promptScore()
+});
