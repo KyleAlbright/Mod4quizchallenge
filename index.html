@@ -5,23 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coding Quiz</title>
+    <link rel = "stylesheet" href ="./assets/style.css">
   </head>
   <body>
    
     <header><h1 id="header">Coding Quiz</h1></header>
     <p id="rules" class="rules">Rules for the coding quiz... click to start</p>
-    <button id="start"><strong>START</strong></button>
+    <button class ="start" id="start"><strong>START</strong></button>
     
-    <div id="timer"></div>
-    <div id="score"></div>
+    <div class="timer" id="timer"></div>
+    <div class = "score" id="score"></div>
 
     <section id="questions" class="questions">
       <div id="questionOne">
-        <h2>CSS style sheets are read how?</h2>
-        <button id="correct-answer-one">A) Top to Bottom</button>
-        <button class="wrong-answer-one">B) Bottom to Top</button>
-        <button class="wrong-answer-one">C) Left to Right</button>
-        <button class="wrong-answer-one">D) Right to Left</button>
+        <h2>CSS style sheets are read how?</h2> 
+       <button id="correct-answer-one">A) Top to Bottom</button> 
+       <button class="wrong-answer-one">B) Bottom to Top</button>
+       <button class="wrong-answer-one">C) Left to Right</button>
+       <button class="wrong-answer-one">D) Right to Left</button>
       </div>
 
       <div id="questionTwo">
@@ -61,7 +62,8 @@
       <h3>Great job!</h3>
       <p>Please enter your initials for high score.</p>
       <label class="initials">Initials:</label><br>
-      <input type="text" id="textInitials">
+      <input type="text" id="textInitials" class="textInitials" id="textInitials">
+      <input type="submit" id="submitButton" class = "submitButton" id="submitButton">
     </form>
 
     <div id="gameOver">
@@ -71,6 +73,5 @@
     </div>
 
     <script src = "./assets/script.js"></script>
-    
   </body>
 </html>
