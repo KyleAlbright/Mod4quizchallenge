@@ -15,12 +15,14 @@ var textInitialsEl = document.getElementById("textInitials");
 var gameOverEl = document.getElementById("gameOver");
 var replayEl = document.getElementById("replay");
 var scoreEl = document.getElementById("score");
-var textInitialsEl = document.getElementById("textInitials")
-var submitButtonEl = document.getElementById("submitButton")
+var textInitialsEl = document.getElementById("textInitials");
+var submitButtonEl = document.getElementById("submitButton");
 
+var initialsArray = [];
+var answered = 1;
 var score = 0;
 var timerEnd = 0;
-var secondsRemaining = 60;
+var secondsRemaining = 2;
 
 questionOneEl.style.display = "none";
 questionTwoEl.style.display = "none";
@@ -31,26 +33,38 @@ greatJobEl.style.display = "none";
 gameOverEl.style.display = "none";
 
 function penalty() {
-  secondsRemaining = secondsRemaining-10;
+  secondsRemaining = secondsRemaining - 10;
 }
 
-function points(){
-    score = score+5;
+function points() {
+  score = score + 5;
 }
-function pauseTime(){
-    timerEnd = secondsRemaining
-}
-
-
-function gameOver(){
-    if(secondsRemaining == 0){
-        questionsEL.style.display ="none"
-        gameOverEl.style.display = "block"
-    }
-    
-    
+function handleInitials(event) {
+  event.preventDefault(); // prevents it from restarting
+  var initials = textInitialsEl.value; // sets a new variable for what the user inputs
+  var storedInitials = localStorage.getItem("init"); // sets a new variable for the stored initials
+  initialsArray.push(textInitialsEl); // this adds the initials to our array
+  console.log("initials", initials); // check to see if this is happening
+  initialsArray.push(storedInitials); // this adds our array to storage
+  JSON.stringify(initialsArray); // this turns our array into a string
+  localStorage.setItem("init", initialsArray); // this sets our new string into storage
 }
 
+function handleScoreboard() {
+  var scoreInitialsJSON = localStorage.getItem("init"); // sets a new variable from the local storage
+  var scoreInitials = JSON.parse(scoreInitialsJSON); //sets a variable that is grabbed from local storage
+  console.log("score initials", scoreInitials);
+}
+function questionAnswered() {
+  answered = answered + 1;
+}
+
+function startOver() {
+  if (secondsRemaining == 0) {
+    questionsEL.style.display = "none";
+    gameOverEl.style.display = "block";
+  }
+}
 
 startEl.addEventListener("click", function () {
   //checking 0 because it starts at zero until clicked
@@ -61,8 +75,11 @@ startEl.addEventListener("click", function () {
       scoreEl.textContent = "Score: " + score;
 
       if (secondsRemaining <= 0) {
-        clearInterval(timerEnd);
-        timerEL.textContent = "Time is up.";
+     questionsEL.style.display = "none";
+     gameOverEl.style.display = "block";
+     scoreEl.style.display = "none";
+     timerEl.style.display = "none"
+     
       }
     }, 1000);
   }
@@ -75,21 +92,21 @@ startEl.addEventListener("click", function () {
 
   let correctAnswer = document.getElementById("correct-answer-one");
   let wrongAnswer = document.querySelectorAll(".wrong-answer-one");
-  
 
-  correctAnswer.addEventListener("click", 
-  promptTwo);
+  correctAnswer.addEventListener("click", promptTwo);
   correctAnswer.addEventListener("click", points);
-  
+  correctAnswer.addEventListener("click", questionAnswered);
+
   wrongAnswer.forEach((wrong) => {
     wrong.addEventListener("click", promptTwo);
   });
   wrongAnswer.forEach((wrong) => {
     wrong.addEventListener("click", penalty);
   });
-
-
-
+  wrongAnswer.forEach((wrong) => {
+    wrong.addEventListener("click", questionAnswered);
+  });
+  
 
   function promptTwo() {
     questionOneEl.style.display = "none";
@@ -100,15 +117,18 @@ startEl.addEventListener("click", function () {
 
     correctAnswer.addEventListener("click", promptThree);
     correctAnswer.addEventListener("click", points);
-   
+    correctAnswer.addEventListener("click", questionAnswered);
+
     wrongAnswer.forEach((wrong) => {
       wrong.addEventListener("click", promptThree);
     });
     wrongAnswer.forEach((wrong) => {
-        wrong.addEventListener("click", penalty);
-      });
+      wrong.addEventListener("click", penalty);
+    });
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", questionAnswered);
+    });
   }
-
 
   function promptThree() {
     questionTwoEl.style.display = "none";
@@ -119,15 +139,18 @@ startEl.addEventListener("click", function () {
 
     correctAnswer.addEventListener("click", promptFour);
     correctAnswer.addEventListener("click", points);
-    
+    correctAnswer.addEventListener("click", questionAnswered);
+
     wrongAnswer.forEach((wrong) => {
       wrong.addEventListener("click", promptFour);
     });
     wrongAnswer.forEach((wrong) => {
-        wrong.addEventListener("click", penalty);
-      });
+      wrong.addEventListener("click", penalty);
+    });
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", questionAnswered);
+    });
   }
-
 
   function promptFour() {
     questionThreeEl.style.display = "none";
@@ -138,15 +161,18 @@ startEl.addEventListener("click", function () {
 
     correctAnswer.addEventListener("click", promptFive);
     correctAnswer.addEventListener("click", points);
-    
+    correctAnswer.addEventListener("click", questionAnswered);
+
     wrongAnswer.forEach((wrong) => {
       wrong.addEventListener("click", promptFive);
     });
     wrongAnswer.forEach((wrong) => {
-        wrong.addEventListener("click", penalty);
-      });
+      wrong.addEventListener("click", penalty);
+    });
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", questionAnswered);
+    });
   }
-
 
   function promptFive() {
     questionFourEl.style.display = "none";
@@ -157,22 +183,30 @@ startEl.addEventListener("click", function () {
 
     correctAnswer.addEventListener("click", promptScore);
     correctAnswer.addEventListener("click", points);
-    
-   
+    correctAnswer.addEventListener("click", questionAnswered);
+
     wrongAnswer.forEach((wrong) => {
       wrong.addEventListener("click", promptScore);
     });
     wrongAnswer.forEach((wrong) => {
-        wrong.addEventListener("click", penalty);
-      });
-      
+      wrong.addEventListener("click", penalty);
+    });
+    wrongAnswer.forEach((wrong) => {
+      wrong.addEventListener("click", questionAnswered);
+    });
   }
-
-   
 });
-// pauseTime()
-function promptScore(){
-    questionFiveEl.style.display = "none";
-    greatJobEl.style.display = "block";
+
+
+function promptScore() {
+  questionFiveEl.style.display = "none";
+  greatJobEl.style.display = "block";
+  if (answered === 5) {
+    clearInterval(timerEnd);
+    timerEl.textContent = "Time left:" + secondsRemaining;
+    scoreEl.textContent =  secondsRemaining + score + 5;
+  }
 }
 
+submitButtonEl.addEventListener("click", handleInitials);
+submitButtonEl.addEventListener("click", handleScoreboard);

@@ -8,6 +8,7 @@ complete page
 game over 
 restart
 high scores
+*prolly more... we'll add as we go
 ________________________________________________________________________
 
 HTML:
@@ -45,17 +46,17 @@ JS - Psuedo code
 
 * function to clear the second question, add points / subtract time, and move to third.✔️
 
-* function to clear the third question, add points / subtract time, and move to fourth.
+* function to clear the third question, add points / subtract time, and move to fourth.✔️
 
 * function to clear the fourth, add points / subtract time, and move to fifth.✔️
 
 * function to add points / subtract time, and take us to the complete page.✔️
 
-* function to pause the timer
+* function to pause the timer✔️
 
-* function to add the score we have with the remaining time and display that in the "complete page"
+* function to add the score we have with the remaining time and display that in the "complete page"✔️
 
-* We need an overlying function that will get us to game over screen IF time runs out. ( this may need to go above all the other functions listed to prompt us to the questions. Not sure.)
+* We need an overlying function that will get us to game over screen IF time runs out. ( this may need to go above all the other functions listed to prompt us to the questions. Not sure.)✔️
 
 * We need a function to take us back to the beginning if game over
 
