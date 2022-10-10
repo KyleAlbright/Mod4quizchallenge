@@ -58,6 +58,6 @@ JS - Psuedo code
 
 * We need an overlying function that will get us to game over screen IF time runs out. ( this may need to go above all the other functions listed to prompt us to the questions. Not sure.)✔️
 
-* We need a function to take us back to the beginning if game over
+* We need a function to take us back to the beginning if game over✔️
 
 * we need a function that will store the user Data using JSON.parse and then display it to a high score page (this may be separate HTML / JS sheets)

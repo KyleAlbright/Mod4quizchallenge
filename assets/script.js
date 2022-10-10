@@ -22,7 +22,7 @@ var initialsArray = [];
 var answered = 1;
 var score = 0;
 var timerEnd = 0;
-var secondsRemaining = 2;
+var secondsRemaining = 60;
 
 questionOneEl.style.display = "none";
 questionTwoEl.style.display = "none";
@@ -60,10 +60,7 @@ function questionAnswered() {
 }
 
 function startOver() {
-  if (secondsRemaining == 0) {
-    questionsEL.style.display = "none";
-    gameOverEl.style.display = "block";
-  }
+  window.location.reload(true)
 }
 
 startEl.addEventListener("click", function () {
@@ -78,8 +75,14 @@ startEl.addEventListener("click", function () {
      questionsEL.style.display = "none";
      gameOverEl.style.display = "block";
      scoreEl.style.display = "none";
-     timerEl.style.display = "none"
+     timerEl.style.display = "none";
+
+     let fromTheTop = document.getElementById("replay")
+
+     fromTheTop.addEventListener("click", startOver);
      
+
+
       }
     }, 1000);
   }
