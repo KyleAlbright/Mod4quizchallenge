@@ -40,6 +40,7 @@ function penalty() {
 //adds 5 points for every question right
 function points() {
   score = score + 5;
+  console.log(score)
 }
 //keeps track of how many questions we have gone through (this is to tell the timer when to stop)
 function questionAnswered() {
@@ -177,8 +178,8 @@ startEl.addEventListener("click", function () {
     let correctAnswer = document.getElementById("correct-answer-five");
     let wrongAnswer = document.querySelectorAll(".wrong-answer-five");
 
-    correctAnswer.addEventListener("click", promptScore);
     correctAnswer.addEventListener("click", points);
+    correctAnswer.addEventListener("click", promptScore);
     correctAnswer.addEventListener("click", questionAnswered);
 
     wrongAnswer.forEach((wrong) => {
@@ -199,8 +200,10 @@ function promptScore() {
   greatJobEl.style.display = "block";
   if (answered === 5) {
     clearInterval(timerEnd);
+    console.log(secondsRemaining);
+    console.log(score)
     timerEl.textContent = "Time left:" + secondsRemaining;
-    scoreEl.textContent =  secondsRemaining + score + 5;
+    scoreEl.textContent = `Score: ${parseInt(secondsRemaining + score)}`;
   }
   //Storing the initials and score in Local Storage
   submitButton.onclick = () => {
