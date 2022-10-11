@@ -1,5 +1,4 @@
 // variables for DOM manipulation
-
 var headerEl = document.getElementById("header");
 var startEl = document.getElementById("start");
 var rulesEL = document.getElementById("rules");
@@ -19,12 +18,13 @@ var scoreEl = document.getElementById("score");
 var textInitialsEl = document.getElementById("textInitials");
 var submitButtonEl = document.getElementById("submitButton");
 
-var initialsArray = [];
+//variables for action items
 var answered = 1;
 var score = 0;
 var timerEnd = 0;
 var secondsRemaining = 60;
 
+//hides everything except the starting screen
 questionOneEl.style.display = "none";
 questionTwoEl.style.display = "none";
 questionThreeEl.style.display = "none";
@@ -33,29 +33,34 @@ questionFiveEl.style.display = "none";
 greatJobEl.style.display = "none";
 gameOverEl.style.display = "none";
 
+//takes 10 seconds off the clock 
 function penalty() {
   secondsRemaining = secondsRemaining - 10;
 }
-
+//adds 5 points for every question right
 function points() {
   score = score + 5;
 }
+//keeps track of how many questions we have gone through (this is to tell the timer when to stop)
 function questionAnswered() {
   answered = answered + 1;
 }
-
+//this starts the game over if we get to 0 on the clock
 function startOver() {
   window.location.reload(true)
 }
 
+//this is the game starting.
 startEl.addEventListener("click", function () {
-  //checking 0 because it starts at zero until clicked
+  
+  //checking 0 because it starts at zero until clicked - this is displaying the time and score
   if (timerEnd === 0) {
     timerEnd = setInterval(function () {
       secondsRemaining--;
       timerEl.textContent = "Time: " + secondsRemaining;
       scoreEl.textContent = "Score: " + score;
 
+      //if time reaches zero this will take us to the game over screen
       if (secondsRemaining <= 0) {
      questionsEL.style.display = "none";
      gameOverEl.style.display = "block";
@@ -71,7 +76,9 @@ startEl.addEventListener("click", function () {
       }
     }, 1000);
   }
-
+//hiding the start screen and displaying the first question. 
+//The following logic is the same for the next 4 sections: When the user chooses and answer, it will prompt them to the next question as well as add 1 to the counter of questions answered. 
+//If the user gets the question right, 5 points added, if wrong 10 seconds off the clock. 
   headerEl.style.display = "none";
   startEl.style.display = "none";
   rulesEL.style.display = "none";
@@ -186,7 +193,7 @@ startEl.addEventListener("click", function () {
   }
 });
 
-
+//this is checking if the user got through all the questions. If they did, the timer stops, and the user is brought to the page to enter their initials, and record the score. 
 function promptScore() {
   questionFiveEl.style.display = "none";
   greatJobEl.style.display = "block";
@@ -195,9 +202,9 @@ function promptScore() {
     timerEl.textContent = "Time left:" + secondsRemaining;
     scoreEl.textContent =  secondsRemaining + score + 5;
   }
+  //Storing the initials and score in Local Storage
   submitButton.onclick = () => {
     let initials = textInitialsEl.value;
-    //Store Initials and Score in Local Storage
     var results = {
         initials: initials,
         score: score + secondsRemaining 
