@@ -23,6 +23,15 @@ button {
 
 }
 
+a {
+    text-decoration: none;
+    color: red;
+}
+
+a:hover {
+    color: chartreuse;
+}
+
 button:hover {
     background:#251e21;
     cursor: grab;

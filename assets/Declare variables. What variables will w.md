@@ -60,4 +60,4 @@ JS - Psuedo code
 
 * We need a function to take us back to the beginning if game over✔️
 
-* we need a function that will store the user Data using JSON.parse and then display it to a high score page (this may be separate HTML / JS sheets)
+* we need a function that will store the user Data using JSON.parse and then display it to a high score page (this may be separate HTML / JS sheets)✔️
