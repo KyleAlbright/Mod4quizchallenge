@@ -4,6 +4,7 @@ var headerEl = document.getElementById("header");
 var startEl = document.getElementById("start");
 var rulesEL = document.getElementById("rules");
 var timerEl = document.getElementById("timer");
+var viewHighScoresEl = document.getElementById("viewHighScores")
 var questionsEL = document.getElementById("questions");
 var questionOneEl = document.getElementById("questionOne");
 var questionTwoEl = document.getElementById("questionTwo");
@@ -38,22 +39,6 @@ function penalty() {
 
 function points() {
   score = score + 5;
-}
-function handleInitials(event) {
-  event.preventDefault(); // prevents it from restarting
-  var initials = textInitialsEl.value; // sets a new variable for what the user inputs
-  var storedInitials = localStorage.getItem("init"); // sets a new variable for the stored initials
-  initialsArray.push(textInitialsEl); // this adds the initials to our array
-  console.log("initials", initials); // check to see if this is happening
-  initialsArray.push(storedInitials); // this adds our array to storage
-  JSON.stringify(initialsArray); // this turns our array into a string
-  localStorage.setItem("init", initialsArray); // this sets our new string into storage
-}
-
-function handleScoreboard() {
-  var scoreInitialsJSON = localStorage.getItem("init"); // sets a new variable from the local storage
-  var scoreInitials = JSON.parse(scoreInitialsJSON); //sets a variable that is grabbed from local storage
-  console.log("score initials", scoreInitials);
 }
 function questionAnswered() {
   answered = answered + 1;
@@ -90,6 +75,7 @@ startEl.addEventListener("click", function () {
   headerEl.style.display = "none";
   startEl.style.display = "none";
   rulesEL.style.display = "none";
+  viewHighScoresEl.style.display = "none";
 
   questionOneEl.style.display = "block";
 
@@ -209,7 +195,15 @@ function promptScore() {
     timerEl.textContent = "Time left:" + secondsRemaining;
     scoreEl.textContent =  secondsRemaining + score + 5;
   }
+  submitButton.onclick = () => {
+    let initials = textInitialsEl.value;
+    //Store Initials and Score in Local Storage
+    var results = {
+        initials: initials,
+        score: score + secondsRemaining 
+    }
+    localStorage.setItem((localStorage.length+1), JSON.stringify(results));
+    textInitialsEl.value = ""
+    location.reload();
 }
-
-submitButtonEl.addEventListener("click", handleInitials);
-submitButtonEl.addEventListener("click", handleScoreboard);
+}
