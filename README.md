@@ -32,7 +32,7 @@ When the user is presented with the opening screen, they are given the rules for
 
  ### Link to Deployed Web Page
  
-https://kylealbright.github.io/module4challenge/
+https://kylealbright.github.io/Mod4quizchallenge/
 
 
 
